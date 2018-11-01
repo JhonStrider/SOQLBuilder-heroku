@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ##Salesforce Query Builder using Node.Js, AngularJs, Salesforce REST API, OAuth2 and Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
@@ -51,3 +52,6 @@ heroku config:set clientId=
 ```
 heroku config:set redirectURL=
 ```
+=======
+# SOQLBuilder-heroku
+>>>>>>> e690819e20c6ede70366bb7a9fdec474185b436e
