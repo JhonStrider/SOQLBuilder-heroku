@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <h1> POC Salesforce com Node Js</h1>
+  </head>
+
+  <div class="col-md-6">  
+    <div class="form-horizontal">   
+        <div class="form-group">
+
+            <label class="col-md-1 control-label" for="txtSOQL">SOQL</label>
+            <button ng-click="run()" id="singlebutton" name="singlebutton" class="btn btn-info">Run test </button>
+
+            <div class="col-md-11">                     
+
+                <textarea ng-model="SOQL" class="form-control" style="height:150px;" id="txtSOQL" name="txtSOQL">
+                </textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-1 control-label" > </label>
+          <div class="col-md-11">                     
+          </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="lib/jquery.js"></script>  
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>         
+<script type="text/javascript" src="js/angular.min.js"></script> 
+<script type="text/javascript" src="js/OAuth.js"></script>  
+
+<script>
+    var myApp = angular.module('app1',[ ]);  
+
+    myApp.factory('storageService', function ($rootScope) {
+        return {
+            get: function (key) {
+               return localStorage.getItem(key);
+            },
+            set: function (key, data) {
+               localStorage.setItem(key, data);
+            },
+            remove: function (key) {
+                localStorage.removeItem(key);
+            },
+            clearAll : function () {
+                localStorage.clear();
+            }
+        };
+    });
+
+
+    myApp.controller('ItemCtrl', ['$scope','$templateCache','$http',  '$filter', 'storageService', function($scope,$templateCache,$http,$filter, storageService){
+        
+        $scope.objects =  [] ;
+        $scope.fields =  [] ;
+        $scope.isAPIName = false;
+        $scope.searchText = '';
+        $scope.selectedObject = '';
+        $scope.SOQL = 'SELECT Name, Title, Phone FROM contact ';
+        $scope.isAll = false;
+        $scope.output = [];
+        $scope.columnLabel = [];
+        $scope.msg = '';
+        $scope.pageSize = 10 ;
+        $scope.currentPage = 0;  
+        $scope.orderByColumn = '';
+        $scope.reverse = true;
+        $scope.apiCount = 0;
+        $scope.savedQueryList = [];
+        $scope.SQBAccToken = storageService.get('SQBAccToken') ;
+        $scope.SQBAPIVer = storageService.get('SQBAPIVer') ;
+        $scope.SQBInstURL = storageService.get('SQBInstURL') ;
+        $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
+        $scope.savedQueryList = JSON.parse(storageService.get($scope.loggedInUserId+'savedQuery'));
+
+
+        $scope.run = function(){
+    	 
+    	 $scope.output = [] ; 
+         $scope.filteredItems = [] ;
+         $scope.pagedItems = [] ;
+         $scope.columnLabel = [];
+         
+         $scope.apiCount = $scope.apiCount + 1; 
+         soqlWoNewline = $scope.SOQL.replace(/[\r\n]/g, " ");
+         
+         $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/query?q= '+  $scope.SOQL ; 
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$scope.SQBAccToken , 
+                                                          'SFDCActualURL' : $scope.url  
+                                                         } }).
+                success(function(data, status) { 
+                    $scope.output = data.records ; 
+                    $scope.filteredItems = $scope.output ;
+                    $scope.groupToPages();
+                    
+                    isFirst = true; 
+                    angular.forEach(data.records[0], function (item, index) { 
+                        if(!isFirst)
+                        {
+                            $scope.columnLabel.push(index);
+                        }
+                        isFirst = false;
+                          //$scope.columnLabel.push(item[0]);
+                     });
+
+                                console.log($scope.columnLabel);
+
+                    
+                }).
+                error(function(data, status) {
+                  $scope.data = data || "Request failed "; 
+                  $scope.errorHead = data[0].errorCode ;
+                  $scope.errorMsg = data[0].message ;
+                  angular.element("#errorModelContainer").modal() ;
+              });
+         
+     }
+    
+    
+    
+    
+    
+    }]);
+
+</script>
+
+
+</html>

@@ -1,4 +1,4 @@
-var apiVersion = 'v30.0',
+var apiVersion = 'v40.0',
 	proxyURL = '/proxy';
 
 function popupCenter(url, title, w, h) {
