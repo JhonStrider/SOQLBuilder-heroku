@@ -1,5 +1,5 @@
 {
-  "author": "Shinichi Tomita <shinichi.tomita@gmail.com>",
+  "author": "João Matheus Pinheiro Matos",
   "name": "node-salesforce",
   "description": "Salesforce API Connection Library for Node.js Applications",
   "keywords": [
@@ -9,7 +9,7 @@
     "force.com",
     "database.com"
   ],
-  "homepage": "http://github.com/stomita/node-salesforce",
+  "homepage": "",
   "version": "0.8.0",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/stomita/node-salesforce/raw/master/LICENSE"
+      "url": "T"
     }
   ],
   "main": "./lib/salesforce",

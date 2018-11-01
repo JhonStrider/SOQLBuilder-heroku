@@ -70,7 +70,7 @@
 
                     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
                         '&client_id=' + encodeURIComponent('3MVG9uudbyLbNPZOqT8XQOL2Opr0Sn8xBE2GjJnIiFDUPt4LJHOlN8at8vHoP6JG8lDtZEUkwMEG7dyR5OPlQ') +
-                        '&redirect_uri=' + encodeURIComponent('http://localhost:3002/oauthcallback');
+                        '&redirect_uri=' + encodeURIComponent('https://soql-builder-with-heroku.herokuapp.com/oauthcallback');
                     console.debug(url);
                     popupCenter(url, 'login', 700, 600);
                 }
