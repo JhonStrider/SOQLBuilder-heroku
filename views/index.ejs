@@ -12,7 +12,7 @@
   <body class="container" style="padding-top:50px;">
       <div ng-app="app1" >
             <div class="jumbotron" ng-controller="ItemCtrl">
-              <h1> Salesforce Query Builder </h1> <h4> <a href="http://shivasoft.in/blog">By Jitendra Zaa</a> </h4>
+              <h1> Salesforce Query Builder </h1> <h4> </h4>
               <p>
                   Node.js and AngularJs based Query Builder for Salesforce.
             </p>
@@ -20,7 +20,7 @@
                   To start, please select your Salesforce Instance
               </p>
               <p>
-                  <a ng-click="prod()" id="prodBtn" role="button" style="margin-right:40px" class="btn btn-primary btn-lg">Production</a>
+                  <a ng-click="prod()" id="prodBtn" role="button" style="margin-right:40px" class="btn btn-primary btn-lg">Produção</a>
                   <a  ng-click="sand()" id="sandBtn" role="button" class="btn btn-primary btn-lg">Sandbox</a></p>
             </div>
         </div>
@@ -54,7 +54,8 @@
                 }
             };
         });
-         myApp.controller('ItemCtrl', ['$scope' ,'storageService', function($scope,  storageService) {
+        
+        myApp.controller('ItemCtrl', ['$scope' ,'storageService', function($scope,  storageService) {
 
                 $scope.prod = function(){
                     $scope.login("https://login.salesforce.com/");
@@ -68,9 +69,8 @@
 
 
                     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
-                        '&client_id=' + encodeURIComponent(clientId) +
-                        '&redirect_uri=' + encodeURIComponent(redirectURI);
-
+                        '&client_id=' + encodeURIComponent('3MVG9uudbyLbNPZOqT8XQOL2Opr0Sn8xBE2GjJnIiFDUPt4LJHOlN8at8vHoP6JG8lDtZEUkwMEG7dyR5OPlQ') +
+                        '&redirect_uri=' + encodeURIComponent('http://localhost:3002/oauthcallback');
                     console.debug(url);
                     popupCenter(url, 'login', 700, 600);
                 }
